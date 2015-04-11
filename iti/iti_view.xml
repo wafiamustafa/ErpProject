@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="iti_student_form" model="ir.ui.view">
+        <field name="name">iti_student_form</field>
+        <field name="model">iti.student</field>
+        <field name="arch" type="xml">
+            <form string="students" version="7.0">
+                <sheet>
+                    <group string="image">
+                            <field name="image" widget="image"/>
+
+                    </group>
+                    <group>
+
+                        <group string="Basic Info">
+                            <field name="name"/>
+                            <field name="age"/>
+                            <field name="salary"  readonly='1' attrs="{'invisible':[('accepted','=',False)]}" />
+                        </group>
+                        <group string="Education">
+                            <field name="faculty"/>
+                            <field name="grade"/>
+                            <field name="graduation_year"/>
+                            <field name="dept_id"/>
+                            <field name="skill_id" on_change="change_dept(skill_id)" />
+                        </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="Info">
+                                <field name="comment"/>
+
+
+                            </page>
+                            <page string="Accepted">
+                                <field name="request"/>
+                                <field name="accepted"/>
+                            </page>
+                        </notebook>
+
+                    </group>
+
+                </sheet>
+            </form >
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="iti_students_action">
+        <field name="name">iti_students_action</field>
+        <field name="res_model">iti.student</field>
+        <field name="view_type">tree</field>
+
+    </record>
+
+    <menuitem name="ITI" id="menu_iti_root"/>
+    <menuitem name="ITI" id="menu_iti_main" parent="menu_iti_root"/>
+    <menuitem name="Students" id="menu_iti_students" parent="menu_iti_main" action="iti_students_action"/>
+
+</data>
+</openerp>

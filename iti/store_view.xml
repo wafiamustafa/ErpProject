@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--commitee-->
+        <record id="iti_commitee_form" model="ir.ui.view">
+            <field name="name">iti.commitee.form</field>
+            <field name="model">iti.commitee</field>
+            <field name="arch" type="xml">
+                <form string="Commitee" version="7.0">
+                   <sheet>
+                       <group string="commitee Members">
+                            <field name="employees_ids"/>
+                            <field name="product_id"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--<record id="iti_supplier_tree" model="ir.ui.view">-->
+            <!--<field name="name">iti.supplier.tree</field>-->
+            <!--<field name="model">iti.supplier</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Suppliers">-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="mail"/>-->
+                    <!--<field name="mobile"/>-->
+                    <!--<field name="address"/>-->
+                    <!--<field name="products_ids"/>-->
+
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="iti_commitee_action" model="ir.actions.act_window">
+            <field name="name">commitee</field>
+            <field name="res_model">iti.commitee</field>
+            <field name="view_type">form</field>
+            <field name="view_model">form</field>
+        </record>
+
+
+        <!--supplier-->
+        <record id="iti_supplier_form" model="ir.ui.view">
+            <field name="name">iti.supplier.form</field>
+            <field name="model">iti.supplier</field>
+            <field name="arch" type="xml">
+                <form string="Supplier" version="7.0">
+                   <sheet>
+                        <group string="Baise info">
+                            <field name="name"/>
+                            <field name="mail"/>
+                            <field name="mobile"/>
+                            <field name="address"/>
+                            <field name="products_ids"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="iti_supplier_tree" model="ir.ui.view">
+            <field name="name">iti.supplier.tree</field>
+            <field name="model">iti.supplier</field>
+            <field name="arch" type="xml">
+                <tree string="Suppliers">
+                    <field name="name"/>
+                    <field name="mail"/>
+                    <field name="mobile"/>
+                    <field name="address"/>
+                    <field name="products_ids"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="iti_suppliers_action" model="ir.actions.act_window">
+            <field name="name">Suppliers</field>
+            <field name="res_model">iti.supplier</field>
+            <field name="view_type">form</field>
+            <field name="view_model">form</field>
+        </record>
+        <menuitem name="Suppliers" id="menu_iti_suppliers" parent="menu_iti_main" action="iti_suppliers_action"/>
+
+
+        <!--store-->
+        <record id="iti_store_form" model="ir.ui.view">
+            <field name="name">iti.store.form</field>
+            <field name="model">iti.store</field>
+            <field name="arch" type="xml">
+                <form string="Store" version="7.0">
+                    <sheet>
+                        <group string="Baise info">
+                            <field name="name"/>
+                            <field name="location"/>
+                            <field name="products_ids"/>
+                            <field name="employees_ids"/>
+                            <field name="keeper_id"/>
+                            <field name="manager_id"/>
+                            <field name="supermanager_id"/>
+                            <field name="committeeManager_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="iti_store_tree" model="ir.ui.view">
+            <field name="name">iti.store.tree</field>
+            <field name="model">iti.store</field>
+            <field name="arch" type="xml">
+                <tree string="Stores">
+                    <field name="name"/>
+                    <field name="location"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="iti_stores_action" model="ir.actions.act_window">
+            <field name="name">Stores</field>
+            <field name="res_model">iti.store</field>
+            <field name="view_type">form</field>
+            <field name="view_model">form</field>
+        </record>
+
+        <menuitem name="Stores" id="menu_iti_stores" parent="menu_iti_main" action="iti_stores_action"/>
+
+
+    </data>
+</openerp>
