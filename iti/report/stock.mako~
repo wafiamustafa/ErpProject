@@ -1,0 +1,41 @@
+<head>
+    <style>
+            ${css}
+    </style>
+</head>
+<body>
+<h2>Stock Report</h2>
+<table border="2">
+	<tr>
+		<th>
+			Company
+		</th>
+		<th>
+			Product
+		</th>
+		<th>
+			deficit
+		</th>
+		<th>
+			surplus
+		</th>
+	</tr>
+	% for session in objects:
+		<tr>
+			<td>${session.suppliers_ids}</td>
+			<td>${session.name}</td>
+			% if ${session.qty_available} > ${session.max_qty}:
+				<td>_</td>
+				<td>${session.qty_available} - ${session.max_qty}</td>
+			% elif ${session.qty_available} < ${session.max_qty}:
+				<td>${session.qty_available} - ${session.max_qty}</td>
+				<td>_</td>
+			% else:
+				<td>_</td>
+				<td>_</td>
+			% endif
+
+		</tr>
+</table>
+</body>
+ </html>
