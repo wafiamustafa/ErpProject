@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="iti_search_form" model="ir.ui.view">
+            <field name="name">iti.search.form</field>
+            <field name="model">iti.search</field>
+            <field name="arch" type="xml">
+                <form string="search for product">
+                    <field name="search"/>
+                    <field name="change" on_change="func1(search,change)"/>
+                    <field name="result"/>
+                    <button name="%(iti_search_action)d" string="another search" type="action"/>
+                </form>
+            </field>
+        </record>
+        <record id="iti_search_action" model="ir.actions.act_window">
+            <field name="name">search</field>
+            <field name="res_model">iti.search</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+
+        <menuitem name="search" id="menu_iti_search" parent="menu_iti_main" action="iti_search_action"/>
+
+
+    </data>
+</openerp>
