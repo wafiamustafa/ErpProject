@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<record model="workflow" id="wkf_product">
+    <field name="name">iti.product.workflow</field>
+    <field name="osv">iti.product</field>
+    <field name="on_create" eval='True'/>
+</record>
+
+<record model="workflow.activity" id="act_new">
+    <field name="wkf_id" ref="wkf_product"/>
+    <field name="flow_start" eval='True'/>
+    <field name="name">new</field>
+    <field name="kind">function</field>
+    <field name="action">product_new()</field>
+</record>
+
+<record model="workflow.activity" id="act_recieved">
+    <field name="wkf_id" ref="wkf_product"/>
+    <field name="name">recieved</field>
+    <field name="kind">function</field>
+    <field name="action">product_recieved()</field>
+    <!--<field name="group_id" ref="res.groups_id:10"/>-->
+</record>
+
+<record model="workflow.activity" id="act_under_review">
+    <field name="wkf_id" ref="wkf_product"/>
+    <field name="name">underReview</field>
+    <field name="kind">function</field>
+    <field name="action">product_underReview()</field>
+</record>
+
+<record model="workflow.activity" id="act_approved">
+    <field name="wkf_id" ref="wkf_product"/>
+    <field name="name">approved</field>
+    <field name="kind">function</field>
+    <!--<field name="join_mode">AND</field>-->
+    <field name="action">product_approved()</field>
+</record>
+
+<record model="workflow.activity" id="act_keeper_confirm">
+    <field name="wkf_id" ref="wkf_product"/>
+    <field name="name">keeperConfirm</field>
+    <field name="kind">function</field>
+    <field name="action">product_keeper_confirm()</field>
+</record>
+
+<record model="workflow.activity" id="act_manager_confirm">
+    <field name="wkf_id" ref="wkf_product"/>
+    <field name="name">managerConfirm</field>
+    <field name="kind">function</field>
+    <field name="action">product_manager_confirm()</field>
+</record>
+
+<record model="workflow.activity" id="act_in_stock">
+    <field name="wkf_id" ref="wkf_product"/>
+    <field name="flow_stop" eval="True"/>
+    <field name="name">inStock</field>
+    <field name="kind">function</field>
+    <field name="action">product_in_stock()</field>
+</record>
+
+<record model="workflow.transition" id="t1">
+    <field name="act_from" ref="act_new"/>
+    <field name="act_to" ref="act_recieved"/>
+    <field name="signal">product_recieved</field>
+</record>
+
+<record model="workflow.transition" id="t2">
+    <field name="act_from" ref="act_recieved"/>
+    <field name="act_to" ref="act_under_review"/>
+    <field name="signal">product_under_review</field>
+</record>
+
+<record model="workflow.transition" id="t3">
+    <field name="act_from" ref="act_under_review"/>
+    <field name="act_to" ref="act_approved"/>
+    <field name="signal">product_approved_commit</field>
+</record>
+
+<!--<record model="workflow.transition" id="t4">-->
+    <!--<field name="act_from" ref="act_under_review"/>-->
+    <!--<field name="act_to" ref="act_approved"/>-->
+    <!--<field name="signal">product_approved_commit2</field>-->
+<!--</record>-->
+
+<!--<record model="workflow.transition" id="t5">-->
+    <!--<field name="act_from" ref="act_under_review"/>-->
+    <!--<field name="act_to" ref="act_approved"/>-->
+    <!--<field name="signal">product_approved_commit3</field>-->
+<!--</record>-->
+
+<record model="workflow.transition" id="t6">
+    <field name="act_from" ref="act_approved"/>
+    <field name="act_to" ref="act_keeper_confirm"/>
+    <field name="signal">product_keeper_confirm</field>
+</record>
+
+<record model="workflow.transition" id="t7">
+    <field name="act_from" ref="act_keeper_confirm"/>
+    <field name="act_to" ref="act_manager_confirm"/>
+    <field name="signal">product_manager_confirm</field>
+</record>
+
+<record model="workflow.transition" id="t8">
+    <field name="act_from" ref="act_manager_confirm"/>
+    <field name="act_to" ref="act_in_stock"/>
+    <field name="signal">product_in_stock</field>
+</record>
+
+</data>
+</openerp>
+
+<!--<record id="t2" model="workflow.transition"> <field name="act_from" ref="act_confirm"/> <field name="act_to" ref="act_accepted"/> <field name="signal">validate</field> <field name="group_id" ref="base.group_hr_user"/> </record>-->
+
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<openerp>-->
+    <!--<data>-->
+        <!--&lt;!&ndash;workflow&ndash;&gt;-->
+        <!--<record id="wkf_product_storing" model="workflow">-->
+            <!--<field name="name">iti.product.storing</field>-->
+            <!--<field name="osv">iti.product</field>-->
+            <!--<field name="on_create" eval='True'>True</field>-->
+        <!--</record>-->
+       <!--&lt;!&ndash;activities&ndash;&gt;-->
+        <!--&lt;!&ndash;<record id="act_new" model="workflow.activity">&ndash;&gt;-->
+            <!--&lt;!&ndash;<field name="wkf_id" ref="wkf_product_storing"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<field name="flow_start">True</field>&ndash;&gt;-->
+            <!--&lt;!&ndash;<field name="name">New</field>&ndash;&gt;-->
+        <!--&lt;!&ndash;</record>&ndash;&gt;-->
+        <!--<record id="act_waitKeeperConfirmation" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="wkf_product_storing" />-->
+            <!--<field name="name">Wait Keeper Confirmation</field>-->
+            <!--<field name="flow_start" eval='True'>True</field>-->
+        <!--</record>-->
+        <!--<record id="act_waitManagerConfirmation" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="wkf_product_storing"/>-->
+            <!--<field name="name">Wait Manager Confirmation</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">action_formTeam()</field>-->
+        <!--</record>-->
+        <!--<record id="act_waitExamination" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="wkf_product_storing"/>-->
+            <!--<field name="name">Wait Examination</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">action_waitExamine()</field>-->
+         <!--</record>-->
+        <!--<record id="act_inExamination" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="wkf_product_storing"/>-->
+            <!--<field name="name">In Examination</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">action_examine()</field>-->
+         <!--</record>-->
+        <!--<record id="act_examined" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="wkf_product_storing"/>-->
+            <!--<field name="name">Examined</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">action_showExaminationResult()</field>-->
+         <!--</record>-->
+        <!--<record id="act_excepted" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="wkf_product_storing"/>-->
+            <!--<field name="name">excepted</field>-->
+            <!--<field name="flow_stop" eval='True'>True</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">action_except()</field>-->
+        <!--</record>-->
+        <!--<record id="act_rejected" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="wkf_product_storing"/>-->
+            <!--<field name="name">rejected</field>-->
+            <!--<field name="flow_stop" eval='True'>True</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">action_reject()</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash;transactions&ndash;&gt;-->
+        <!--<record id="trans_waitKeeperConfirmation_waitManagerConfirmation" model="workflow.transition">-->
+            <!--<field name="act_from" ref="act_waitKeeperConfirmation"/>-->
+            <!--<field name="act_to" ref="act_waitManagerConfirmation"/>-->
+            <!--<field name="signal">button_keeperConfirm</field>-->
+        <!--</record>-->
+        <!--<record id="trans_waitManagerConfirmation_waitExamination" model="workflow.transition">-->
+            <!--<field name="act_from" ref="act_waitManagerConfirmation"/>-->
+            <!--<field name="act_to" ref="act_waitExamination"/>-->
+            <!--<field name="signal">button_managerConfirm</field>-->
+        <!--</record>-->
+
+        <!--<record id="trans_waitExamination_inExamination" model="workflow.transition">-->
+            <!--<field name="act_from" ref="act_waitExamination"/>-->
+            <!--<field name="act_to" ref="act_inExamination"/>-->
+            <!--<field name="signal">button_formTeam</field>-->
+        <!--</record>-->
+
+        <!--<record id="trans_inExamination_examined_1" model="workflow.transition">-->
+            <!--<field name="act_from" ref="act_inExamination"/>-->
+            <!--<field name="act_to" ref="act_examined"/>-->
+            <!--<field name="signal">button_member1Confirm</field>-->
+        <!--</record>-->
+
+        <!--<record id="trans_inExamination_examined_2" model="workflow.transition">-->
+            <!--<field name="act_from" ref="act_inExamination"/>-->
+            <!--<field name="act_to" ref="act_examined"/>-->
+            <!--<field name="signal">button_member2Confirm</field>-->
+        <!--</record>-->
+
+                <!--<record id="trans_inExamination_examined_3" model="workflow.transition">-->
+            <!--<field name="act_from" ref="act_inExamination"/>-->
+            <!--<field name="act_to" ref="act_examined"/>-->
+            <!--<field name="signal">button_member3Confirm </field>-->
+        <!--</record>-->
+
+        <!--<record id="trans_examined_excepted" model="workflow.transition">-->
+            <!--<field name="act_from" ref="act_examined"/>-->
+            <!--<field name="act_to" ref="act_excepted"/>-->
+            <!--<field name="signal">button_except </field>-->
+        <!--</record>-->
+
+        <!--<record id="trans_examined_rejected" model="workflow.transition">-->
+            <!--<field name="act_from" ref="act_examined"/>-->
+            <!--<field name="act_to" ref="act_rejected"/>-->
+            <!--<field name="signal">button_reject </field>-->
+        <!--</record>-->
+
+
+    <!--</data>-->
+<!--</openerp>-->

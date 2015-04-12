@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--report-->
+        <record model="ir.actions.report.xml" id="l0">
+            <field name="model">iti.product</field>
+            <field name="name">Products List</field>
+            <field name="report_name">iti.product.list</field>
+            <field name="report_xml">iti/report/stock.xml</field>
+        </record>
+
+         <record id="iti_product_form" model="ir.ui.view">
+            <field name="name">iti.product.form</field>
+            <field name="model">iti.product</field>
+            <field name="arch" type="xml">
+                <form string="Product" version="7.0">
+                    <sheet>
+                        <header>
+                            <button name="product_recieved" string="استلام"
+                                    attrs="{'invisible':['|',('is_keeper','!=',True),('state','!=','new')]}"/>
+                            <!--<button name="product_recieved" string="Recieved" states="new"/>-->
+                            <button name="product_under_review" string="تحت المراجعة"
+                                    attrs="{'invisible':['|',('is_manager','!=',True),('state','!=','recieved')]}"/>
+                            <!--<button name="product_under_review" string="Under Review" states="recieved"/>-->
+                            <button name="product_approved_commit" string="موافقة1"
+                                    attrs="{'invisible':['|',('is_committeeManager','!=',True),('state','!=','underReview')]}"/>
+                            <!--<button name="product_approved_commit1" string="Commitee 1" states="underReview"/>-->
+                            <!--<button name="product_approved_commit2" string="موافقة2"-->
+                                    <!--attrs="{'invisible':['|',('is_supermanager','!=',True),('state','!=','underReview')]}"/>-->
+                            <!--&lt;!&ndash;<button name="product_approved_commit2" string="Commitee 2" states="underReview"/>&ndash;&gt;-->
+                            <!--<button name="product_approved_commit3" string="موافقة3"-->
+                                    <!--attrs="{'invisible':['|',('is_supermanager','!=',True),('state','!=','underReview')]}"/>-->
+                            <!--<button name="product_approved_commit3" string="Commitee 3" states="underReview"/>-->
+                            <button name="product_keeper_confirm" string="Keeper Confirm" states="approved"/>
+                            <button name="product_manager_confirm" string="Manager Confirm" states="keeperConfirm"/>
+                            <button name="product_in_stock" string="Super Manager Confirm" states="managerConfirm"/>
+
+
+                            <field name="state" widget="statusbar"
+                                   statusbar_visible="new,recieved,underReview,approved,keeperConfirm,managerConfirm,inStock"/>
+                        </header>
+                        <group>
+                            <group string="Baise info">
+                                <field name="name"/>
+                                <field name="qty_available"/>
+                                <field name="price"/>
+                                <!--<field name="productdate"/>-->
+                                <!--<field name="expirdate"/>ٍ-->
+                                <field name="status"/>
+
+                                <field name="desc"/>
+                            </group>
+                            <group string="info">
+                                <field name="catagory_id" string='catagory'/>
+                                <field name="subcatagory_id"/>
+                                <field name="subsubcatagory_id"/>
+                                <field name="store_id"/>
+                                <field name="code"/>
+                                <field name="complete_code"/>
+                                <field name="suppliers_ids"/>
+
+                            </group>
+                            <field name="is_keeper" invisible="1"/>
+                            <field name="is_manager" invisible="1"/>
+                            <field name="is_supermanager" invisible="1"/>
+                            <field name="is_committeeManager" invisible="1"/>
+
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+<!--<record id="iti_product_form" model="ir.ui.view">-->
+    <!--<field name="name">iti.product.form</field>-->
+    <!--<field name="model">iti.product</field>-->
+    <!--<field name="arch" type="xml">-->
+    <!--<form string="Product" version="7.0">-->
+        <!--<sheet>-->
+            <!--<header>-->
+                 <!--<button name="product_recieved" string="استلام"-->
+                                    <!--attrs="{'invisible':['|',('is_keeper','!=',True),('state','!=','new')]}"/>-->
+                            <!--&lt;!&ndash;<button name="product_recieved" string="Recieved" states="new"/>&ndash;&gt;-->
+                            <!--<button name="product_under_review" string="تحت المراجعة"-->
+                                    <!--attrs="{'invisible':['|',('is_manager','!=',True),('state','!=','recieved')]}"/>-->
+                            <!--&lt;!&ndash;<button name="product_under_review" string="Under Review" states="recieved"/>&ndash;&gt;-->
+                            <!--<button name="product_approved_commit1" string="موافقة1"-->
+                                    <!--attrs="{'invisible':['|',('is_supermanager','!=',True),('state','!=','underReview')]}"/>-->
+                            <!--&lt;!&ndash;<button name="product_approved_commit1" string="Commitee 1" states="underReview"/>&ndash;&gt;-->
+                            <!--<button name="product_approved_commit2" string="موافقة2"-->
+                                    <!--attrs="{'invisible':['|',('is_supermanager','!=',True),('state','!=','underReview')]}"/>-->
+                            <!--&lt;!&ndash;<button name="product_approved_commit2" string="Commitee 2" states="underReview"/>&ndash;&gt;-->
+                            <!--<button name="product_approved_commit3" string="موافقة3"-->
+                                    <!--attrs="{'invisible':['|',('is_supermanager','!=',True),('state','!=','underReview')]}"/>-->
+                            <!--&lt;!&ndash;<button name="product_approved_commit3" string="Commitee 3" states="underReview"/>&ndash;&gt;-->
+                            <!--<button name="product_keeper_confirm" string="Keeper Confirm" states="approved"/>-->
+                            <!--<button name="product_manager_confirm" string="Manager Confirm" states="keeperConfirm"/>-->
+                            <!--<button name="product_in_stock" string="Super Manager Confirm" states="managerConfirm"/>-->
+
+
+                            <!--<field name="state" widget="statusbar"-->
+                                   <!--statusbar_visible="new,recieved,underReview,approved,keeperConfirm,managerConfirm,inStock"/>-->
+                        <!--</header>-->
+            <!--&lt;!&ndash;<header>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<button name="set_accepted" type="object" string="acccccept"/>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;<button name="product_recieved" string="Recieved" states="new"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button name="%(iti_commitee_action)d" type="action" string="Assign Commitee" states="recieved"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button name="product_under_review" string="Under Review" states="recieved"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button name="product_approved_commit1" string="Commitee 1" states="underReview"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button name="product_approved_commit2" string="Commitee 2" states="underReview"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button name="product_approved_commit3" string="Commitee 3" states="underReview"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button name="product_keeper_confirm" string="Keeper Confirm" states="approved"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button name="product_manager_confirm" string="Manager Confirm" states="keeperConfirm"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button name="product_in_stock" string="Super Manager Confirm" states="managerConfirm"/>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<field name="state" widget="statusbar" statusbar_visible="new,recieved,underReview,approved,keeperConfirm,managerConfirm,inStock"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;</header>&ndash;&gt;-->
+            <!--<group>-->
+                <!--<group string="Baise info">-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="qty_available"/>-->
+                    <!--<field name="price"/>-->
+                    <!--<field name="suppliers_ids"/>-->
+                    <!--&lt;!&ndash;<field name="productdate"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<field name="expirdate"/> <field name="desc"/>&ndash;&gt;-->
+                <!--</group>-->
+                <!--<group string="info">-->
+                    <!--<field name="catagory_id" string='catagory'/>-->
+                    <!--<field name="subcatagory_id"/>-->
+                    <!--<field name="subsubcatagory_id"/>-->
+                    <!--<field name="store_id"/>-->
+                    <!--<field name="code"/>-->
+                    <!--<field name="complete_code"/>-->
+
+                <!--</group>-->
+            <!--</group>-->
+        <!--</sheet>-->
+
+            <!--</form>-->
+        <!--</field>-->
+<!--</record>-->
+
+        <!--product-->
+
+        <!--<record id="iti_product_form" model="ir.ui.view">-->
+            <!--<field name="name">iti.product.form</field>-->
+            <!--<field name="model">iti.product</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Product" version="7.0">-->
+                    <!--<sheet>-->
+                        <!--&lt;!&ndash;<button name="fun" type="object" string="Accept"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button name="button_keeperConfirm" states="waitKeeperConfirmation" string="keeper Confirm" />&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button name="button_managerConfirm" states="waitManagerConfirmation" string="manager Confirm" />&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button name="button_formTeam" states="waitExamination" string="examin Confirm" />&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<button name="%(hr.open_view_employee_tree)d" type="action" string="Accept"/>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button name="button_member1Confirm" states="inExamination" string="Confirm member1" />&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button name="button_member2Confirm" states="inExamination" string="Confirm member2" />&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button name="button_member3Confirm" states="inExamination" string="Confirm member3" />&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button name="button_except" states="inExamination" string="Confirm" />&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button name="button_reject" states="inExamination" string="Confirm" />&ndash;&gt;-->
+
+                        <!--<group>-->
+                            <!--<group string="Baise info">-->
+                                <!--<field name="name"/>-->
+                                <!--<field name="price"/>-->
+                                <!--&lt;!&ndash;<field name="support"/>&ndash;&gt;-->
+                                <!--<field name="productdate"/>-->
+                                <!--<field name="expirdate"/>-->
+                                <!--<field name="desc"/>-->
+                                <!--&lt;!&ndash;<button name="button_keeperConfirm" states="waitKeeperConfirmation" string="Confirm" type="object"/>&ndash;&gt;-->
+                            <!--</group>-->
+                            <!--<group string="info">-->
+                                <!--<field name="catagory_id" string='catagory'/>-->
+                                <!--<field name="subcatagory_id"/>-->
+                                <!--<field name="subsubcatagory_id"/>-->
+                                <!--<field name="code"/>-->
+                                <!--<field name="complete_code"/>-->
+                            <!--</group>-->
+                        <!--</group>-->
+                    <!--</sheet>-->
+
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="iti_product_tree" model="ir.ui.view">
+            <field name="name">iti.product.tree</field>
+            <field name="model">iti.product</field>
+            <field name="arch" type="xml">
+                <tree string="Products">
+                    <field name="name"/>
+                    <field name="price"/>
+                    <field name="sale_price"/>
+                    <field name="qty_available"/>
+                    <field name="code"/>
+                    <field name="complete_code"/>
+                    <field name="suppliers_ids"/>
+                    <field name="store_id"/>
+                    <field name="state"/>
+                    <button name="button_keeperConfirm" states="waitKeeperConfirmation" string="keeper Confirm" />
+                    <button name="button_managerConfirm" states="waitManagerConfirmation" string="manager Confirm" />
+                    <button name="button_formTeam" states="waitExamination" string="examin Confirm" />
+                    <!--<button name="%(hr.open_view_employee_tree)d" type="action" string="Accept"/>-->
+                    <button name="button_member1Confirm" states="inExamination" string="Confirm member1" />
+                    <button name="button_member2Confirm" states="inExamination" string="Confirm member2" />
+                    <button name="button_member3Confirm" states="inExamination" string="Confirm member3" />
+                    <button name="button_except" states="inExamination" string="Confirm" />
+                    <button name="button_reject" states="inExamination" string="Confirm" />
+
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="iti_product_action" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="res_model">iti.product</field>
+            <field name="view_type">form</field>
+            <field name="view_model">form</field>
+        </record>
+        <menuitem id="menu_iti_products" name="Products" parent="menu_iti_main" action="iti_product_action"></menuitem>
+
+    </data>
+</openerp>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!--catagory-->
+        <record id="iti_catagory_form" model="ir.ui.view">
+            <field name="name">iti.catagory.form</field>
+            <field name="model">iti.catagory</field>
+            <field name="arch" type="xml">
+                <form string="Product Catagory" version="7.0">
+                    <sheet>
+                        <group string="Baise info">
+                            <field name="name"/>
+                            <field name="cat_id"/>
+                            <field name="desc"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="iti_generalCategories_action" model="ir.actions.act_window">
+            <field name="name">Product catagory</field>
+            <field name="res_model">iti.catagory</field>
+            <field name="view_type">form</field>
+            <field name="view_model">form</field>
+        </record>
+        <menuitem name="General Categories" id="menu_iti_generalCategories" parent="menu_iti_main" action="iti_generalCategories_action"/>
+
+        <!--sub catagory-->
+
+        <record id="iti_subcatagory_form" model="ir.ui.view">
+            <field name="name">iti.subcatagory.form</field>
+            <field name="model">iti.subcatagory</field>
+            <field name="arch" type="xml">
+                <form string="Product subCatagory" version="7.0">
+                    <sheet>
+                        <group string="Baise info">
+                            <field name="name"/>
+                            <field name="subcat_id"/>
+                            <field name="desc"/>
+                        </group>
+                    </sheet>
+                    <field name="catagory_id"/>
+
+                </form>
+            </field>
+        </record>
+        <record id="iti_categories_action" model="ir.actions.act_window">
+            <field name="name">Product subcatagory</field>
+            <field name="res_model">iti.subcatagory</field>
+            <field name="view_type">form</field>
+            <field name="view_model">form</field>
+        </record>
+        <menuitem name="Categories" id="menu_iti_categories" parent="menu_iti_main" action="iti_categories_action"/>
+
+
+
+        <!--subsubcatagory-->
+
+
+        <record id="iti_subsubcatagory_form" model="ir.ui.view">
+            <field name="name">iti.subsubcatagory.form</field>
+            <field name="model">iti.subsubcatagory</field>
+            <field name="arch" type="xml">
+                <form string="Product subsubCatagory" version="7.0">
+                    <sheet>
+                        <group string="Baise info">
+                            <field name="name"/>
+                            <field name="subsubcat_id"/>
+                            <field name="subcatagory_id"/>
+                            <field name="desc"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+        <record id="iti_subCategories_action" model="ir.actions.act_window">
+            <field name="name">Product subsubcatagory</field>
+            <field name="res_model">iti.subsubcatagory</field>
+            <field name="view_type">form</field>
+            <field name="view_model">form</field>
+        </record>
+        <menuitem id="top_iti" name="ITI"></menuitem>
+        <menuitem id="sid_menu" name="ITI" parent="top_iti"></menuitem>
+        <menuitem name="Sub Categories" id="menu_iti_subCategories" parent="menu_iti_main" action="iti_subCategories_action"/>
+
+       </data>
+</openerp>
